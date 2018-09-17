@@ -18,7 +18,7 @@ export default {
     this.geolocation();
     this.timer = setInterval(() => {
       this.geolocation();
-    }, 1000 * 60 * 30);
+    }, 1000 * 60 * 30);//30分钟重新定位
   },
   methods: {
     geolocation() {
@@ -27,10 +27,11 @@ export default {
       gl.getCurrentPosition(function(r) {
         if (this.getStatus() == BMAP_STATUS_SUCCESS) {
           // console.log("您的位置：" + r.point.lng + "," + r.point.lat);
-          vm.setLocation({ lng: r.point.lng, lat: r.point.lat });
-          var myCity = new BMap.LocalCity();
-          myCity.get(function(r) {
+          vm.setLocation({ lng: r.point.lng, lat: r.point.lat });//经度 纬度
+          var myCity = new BMap.LocalCity();//获取当前城市
+          myCity.get(function(r) {//与上面的r不是一个
             // console.log("当前定位城市:" + r.name);
+            // vm[SET_CITY](r.name);
             vm.setCity(r.name);
           });
         } else {
@@ -41,7 +42,7 @@ export default {
     ...mapMutations([SET_LOCATION, SET_CITY])
   },
   beforeDestroy() {
-    clearInterval(this.timer);
+    clearInterval(this.timer);//避免内存泄露
   }
 };
 </script>

@@ -30,6 +30,7 @@ export default {
   name: "SelectAddress",
   computed: {
     ...mapState({
+      // 注意：访问的时候加模块名base 因为分模块开发
       city: state => state.base.city,
       lng: state => state.base.lng,
       lat: state => state.base.lat
@@ -38,12 +39,13 @@ export default {
   created() {
     var vm = this;
     var map = new BMap.Map();
-    var mPoint = new BMap.Point(vm.lng, vm.lat);
+    var mPoint = new BMap.Point(vm.lng, vm.lat);//在app.vue获取到的坐标
 
     var local = new BMap.LocalSearch(mPoint, {
       onSearchComplete: function(results) {
         if (local.getStatus() == BMAP_STATUS_SUCCESS) {
           var s = [];
+          console.log(results);
           for (var i = 0; i < results.getCurrentNumPois(); i++) {
             var current = results.getPoi(i);
             s.push({
@@ -57,6 +59,7 @@ export default {
         }
       }
     });
+    // 强制在本地查找
     local.search("美食", { forceLocal: true });
   },
   data() {

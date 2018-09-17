@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './stores'
+// import store from './stores/index.js'//上面那句话就相当于这个 index.js可以省略
 import './registerServiceWorker'
 
 Vue.config.productionTip = false
